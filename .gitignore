@@ -1,3 +1,5 @@
+nedb_sessionstore
+database/
 # Logs
 logs
 *.log
