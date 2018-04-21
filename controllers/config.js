@@ -31,7 +31,7 @@ module.exports = function(app, express) {
     // Middleware
     app.use(compression());
     app.use(express.static("public"));
-    app.use(morgan("[:time] :method :url :status :res[content-length] - :remote-addr - :response-time ms"));
+    app.use(morgan("[:time] :method :url :status :response-time ms"));
     app.use(cookieParser(settings.SECRET));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(session({
@@ -55,6 +55,7 @@ module.exports = function(app, express) {
             })
             .catch(function(err) {
                 console.error(err);
+                req.session.error = err.message;
                 done(null, false);
             });
         }
@@ -70,6 +71,7 @@ module.exports = function(app, express) {
             })
             .catch(function(err) {
                 console.error(err);
+                req.session.error = err.message;
                 done(null, false);
             });
         }

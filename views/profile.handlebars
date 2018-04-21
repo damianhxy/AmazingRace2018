@@ -3,18 +3,18 @@
         <h1 class="text-center">User Information</h1>
         <dl class="row">
             <dt class="col-lg-6">Username</dt>
-            <dd class="col-lg-6">{{user.username}}</dd>
+            <dd class="col-lg-6">{{data.username}}</dd>
             <dt class="col-lg-6">Email</dt>
-            <dd class="col-lg-6">{{user.email}}</dd>
+            <dd class="col-lg-6">{{data.email}}</dd>
             <dt class="col-lg-6">Class</dt>
-            <dd class="col-lg-6">{{user.class}}</dd>
+            <dd class="col-lg-6">{{data.class}}</dd>
             <dt class="col-lg-6">Phone</dt>
-            <dd class="col-lg-6">{{user.phone}}</dd>
+            <dd class="col-lg-6">{{data.phone}}</dd>
             <dt class="col-lg-6">Score</dt>
-            <dd class="col-lg-6">{{user.score}}</dd>
+            <dd class="col-lg-6">{{data.score}}</dd>
         </dl>
         {{#if user.admin}}
-        <form action="#?_method=DELETE" method="post">
+        <form action="/users/{{data.username}}?_method=DELETE" method="post">
             <button type="submit" class="btn btn-danger">Delete User</button>
         </form>
         {{/if}}

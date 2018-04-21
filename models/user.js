@@ -51,3 +51,11 @@ exports.leaderboard = function() {
 exports.get = function(username) {
     return users.findOneAsync({ username: username });
 };
+
+exports.delete = function(username) {
+    return users.findOneAsync({ username: username })
+    .then(function(user) {
+        if (user.admin) throw Error("User is an admin");
+        return users.removeAsync({ username: username });
+    });
+};

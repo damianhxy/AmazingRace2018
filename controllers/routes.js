@@ -2,7 +2,11 @@ var express = require("express");
 var router = express.Router();
 
 var user = require("../models/user.js");
+
+var flash = require("../middlewares/flash.js");
 var admin = require("../middlewares/admin.js");
+
+router.use(flash);
 
 router.get("/", function(req, res) {
     res.render("home", {
