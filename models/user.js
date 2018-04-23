@@ -59,3 +59,15 @@ exports.delete = function(username) {
         return users.removeAsync({ username: username });
     });
 };
+
+exports.solve = function(username, category, id, score) {
+    return users.findOneAsync({ username: username })
+    .then(function(user) {
+        var problemCode = category + "-" + id;
+        if (user.solved.includes(problemCode))
+            throw Error("Points already claimed");
+        user.solved.push(problemCode);
+        user.score += score;
+        return users.updateAsync({ username: username }, { $set: user });
+    });
+}
