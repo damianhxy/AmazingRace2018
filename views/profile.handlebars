@@ -12,6 +12,18 @@
             <dd class="col-lg-6">{{data.phone}}</dd>
             <dt class="col-lg-6">Score</dt>
             <dd class="col-lg-6">{{data.score}}</dd>
+            <dt class="col-lg-6">Solved Problems</dt>
+            <dd class="col-lg-6">
+                {{#unless data.solved}}
+                No problems solved yet!
+                {{else}}
+                <ul class="list-inline">
+                {{#each data.solved}}
+                    <li class="list-inline-item">{{this}}</li>
+                {{/each}}
+                </ul>
+                {{/unless}}
+            </dd>
         </dl>
         {{#if user.admin}}
         <form action="/users/{{data.username}}?_method=DELETE" method="post">

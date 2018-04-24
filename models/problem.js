@@ -2,7 +2,7 @@ var problems = require("../database/questions.js");
 
 var Promise = require("bluebird");
 
-export.all = function() {
+exports.all = function() {
     return problems;
 }
 
