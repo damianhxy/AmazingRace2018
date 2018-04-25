@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <h1 class="text-center">Manage Problems</h1>
+        <p class="text-danger"><i class="fas fa-exclamation-circle"></i> Use with caution</p>
+        <form id="problemForm" action="/admin" method="post">
+            <pre id="editor" class="ace_editor">{{problems}}</pre>
+            <textarea name="data" hidden>{{problems}}</textarea>
+            <button type="submit" class="btn btn-success"><i class="fas fa-sync-alt"></i> Update</button>
+        </form>
+    </div>
+</div>
+<script src="/js/ace/ace.js"></script>
+<script>
+    $(function() {
+        var editor = ace.edit("editor");
+        var $data = $("[name='data']");
+        var $form = $("#problemForm");
+        editor.$blockScrolling = Infinity;
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/json");
+        editor.getSession().on("change", function() {
+            $data.val(editor.getSession().getValue());
+        });
+    });
+</script>

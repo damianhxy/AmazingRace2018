@@ -37,11 +37,11 @@ router.delete("/:username", admin, function(req, res) {
     user.delete(req.params.username)
     .then(function() {
         req.session.success = "User Deleted!";
-        res.redirect("/leaderboard");
+        res.status(200).redirect("/leaderboard");
     })
     .catch(function(err) {
         req.session.error = err.message;
-        res.redirect("/leaderboard");
+        res.status(400).redirect("/leaderboard");
     });
 });
 

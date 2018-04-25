@@ -46,7 +46,7 @@ exports.leaderboard = function() {
     return users.find({})
     .sort({ score: -1 })
     .execAsync();
-}
+};
 
 exports.get = function(username) {
     return users.findOneAsync({ username: username });
@@ -69,4 +69,4 @@ exports.solve = function(username, question, score) {
         user.score += score;
         return users.updateAsync({ username: username }, { $set: user });
     });
-}
+};

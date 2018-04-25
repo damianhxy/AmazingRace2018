@@ -52,17 +52,49 @@ router.post("/submit", function(req, res) {
     })
     .then(function() {
         req.session.success = question + " solved!";
-        res.redirect("/submit");
+        res.status(200).redirect("/submit");
     })
     .catch(function(err) {
         req.session.error = err.message;
-        res.redirect("/submit");
+        res.status(400).redirect("/submit");
+    });
+});
+
+router.get("/admin", admin, function(req, res) {
+    res.render("admin", {
+        title: "Admin",
+        user: req.user,
+        problems: JSON.stringify(problem.all(), null, 4)
+    });
+});
+
+router.post("/admin", admin, function(req, res) {
+    problem.update(req.body.data)
+    .then(function() {
+        req.session.success = "Problem updated!";
+        res.status(200).redirect("/admin");
     });
 });
 
 router.get("/register", function(req, res) {
     res.render("register", {
         title: "Register",
+        user: req.user
+    });
+});
+
+/* 404 & 500 */
+router.use(function(req, res) {
+    res.status(404).render("404", {
+        title: "Page Not Found",
+        user: req.user
+    });
+});
+
+router.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).render("500", {
+        title: "Internal Server Error",
         user: req.user
     });
 });
