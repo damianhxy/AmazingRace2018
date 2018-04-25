@@ -36,6 +36,7 @@ router.get("/:username", function(req, res) {
 router.delete("/:username", admin, function(req, res) {
     user.delete(req.params.username)
     .then(function() {
+        req.session.success = "User Deleted!";
         res.redirect("/leaderboard");
     })
     .catch(function(err) {

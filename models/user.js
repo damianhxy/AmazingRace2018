@@ -60,13 +60,12 @@ exports.delete = function(username) {
     });
 };
 
-exports.solve = function(username, category, id, score) {
+exports.solve = function(username, question, score) {
     return users.findOneAsync({ username: username })
     .then(function(user) {
-        var problemCode = category + "-" + id;
-        if (user.solved.includes(problemCode))
+        if (user.solved.includes(question))
             throw Error("Points already claimed");
-        user.solved.push(problemCode);
+        user.solved.push(question);
         user.score += score;
         return users.updateAsync({ username: username }, { $set: user });
     });

@@ -39,17 +39,19 @@ router.get("/submit", function(req, res) {
 });
 
 router.post("/submit", function(req, res) {
-    var category = req.body.category;
-    var id = req.body.id;
+    var question = req.body.question;
     var answer = req.body.answer;
+
+    var questionParts = question.split("-")
+    var category = questionParts[0]
+    var id = questionParts[1]
 
     problem.check(category, id, answer)
     .then(function(score) {
-        return user.solve(req.user.username, category, id, score);
+        return user.solve(req.user.username, question, score);
     })
     .then(function() {
-        var problemCode = category + "-" + id;
-        req.session.success = problemCode + " solved!";
+        req.session.success = question + " solved!";
         res.redirect("/submit");
     })
     .catch(function(err) {
