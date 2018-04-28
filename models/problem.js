@@ -15,9 +15,11 @@ exports.check = function(category, id, answer) {
             return reject(Error("Category does not exist"));
         if (!problems[category][id])
             return reject(Error("Problem with that ID does not exist"));
+        if (!problems[category][id].case_sensitive)
+            answer = answer.toLowerCase();
         if (!problems[category][id].answers.includes(answer))
             return reject(Error("Wrong answer"));
-        resolve(problems[category][id].score);
+        resolve(problems[category][id].stars);
     });
 };
 

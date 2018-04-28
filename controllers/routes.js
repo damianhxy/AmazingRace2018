@@ -71,7 +71,7 @@ router.get("/admin", admin, function(req, res) {
 router.post("/admin", admin, function(req, res) {
     problem.update(req.body.data)
     .then(function() {
-        req.session.success = "Problem updated!";
+        req.session.success = "Problem(s) updated!";
         res.status(200).redirect("/admin");
     });
 });
