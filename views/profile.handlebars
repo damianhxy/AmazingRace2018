@@ -26,9 +26,11 @@
             </dd>
         </dl>
         {{#if user.admin}}
+        {{#unless data.admin}}
         <form action="/users/{{data.username}}?_method=DELETE" method="post">
             <button type="submit" class="btn btn-danger">Delete User</button>
         </form>
+        {{/unless}}
         {{/if}}
     </div>
 </div>

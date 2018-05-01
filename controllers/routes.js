@@ -42,9 +42,8 @@ router.post("/submit", function(req, res) {
     var question = req.body.question;
     var answer = req.body.answer;
 
-    var questionParts = question.split("-")
-    var category = questionParts[0]
-    var id = questionParts[1]
+    var category = question.substr(0, 2);
+    var id = question.substr(2);
 
     problem.check(category, id, answer)
     .then(function(score) {

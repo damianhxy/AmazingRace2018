@@ -22,7 +22,7 @@ router.get("/signout", auth, function(req, res) {
    res.redirect("/");
 });
 
-router.get("/:username", function(req, res) {
+router.get("/:username", auth, function(req, res) {
     user.get(req.params.username)
     .then(function(userData) {
         res.render("profile", {

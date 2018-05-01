@@ -43,7 +43,7 @@ exports.authenticate = function(username, password) {
 };
 
 exports.leaderboard = function() {
-    return users.find({})
+    return users.find({ admin: false })
     .sort({ score: -1 })
     .execAsync();
 };

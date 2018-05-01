@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-lg-6 offset-lg-3">
         <h1 class="text-center">Register new account</h1>
+        <div class="alert alert-warning">
+            Your details can not be changed afterwards, so enter them carefully!
+        </div>
         <form action="/users/signup" method="post">
             <div class="form-group row">
                 <label for="username" class="col-lg-2 col-form-label">Username</label>
@@ -23,7 +26,7 @@
             <div class="form-group row">
                 <label for="class" class="col-lg-2 col-form-label">Class</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="class" name="class" required>
+                    <input type="text" class="form-control" id="class" name="class" required pattern="1[7-8](A|S)(1|6|7)([0-9]|[A-K])" placeholder="17S6A">
                 </div>
             </div>
             <div class="form-group row">

@@ -12,6 +12,7 @@
 <script src="/js/ace/ace.js"></script>
 <script>
     $(function() {
+        ace.config.set("basePath", "/js/ace")
         var editor = ace.edit("editor");
         var $data = $("[name='data']");
         var $form = $("#problemForm");
