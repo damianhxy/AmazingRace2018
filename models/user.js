@@ -52,6 +52,15 @@ exports.get = function(username) {
     return users.findOneAsync({ username: username });
 };
 
+exports.clear = function(username) {
+    return users.findOneAsync({ username: username })
+    .then(function(user) {
+        user.solved = [];
+        user.score = 0;
+        return users.updateAsync({ username: username }, { $set: user });
+    });
+}
+
 exports.delete = function(username) {
     return users.findOneAsync({ username: username })
     .then(function(user) {

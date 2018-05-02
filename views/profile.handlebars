@@ -28,9 +28,12 @@
         {{#if user.admin}}
         {{#unless data.admin}}
         <form action="/users/{{data.username}}?_method=DELETE" method="post">
-            <button type="submit" class="btn btn-danger">Delete User</button>
+            <button type="submit" class="btn btn-danger"><i class="fas fa-user-times"></i> Delete User</button>
         </form>
         {{/unless}}
+        <form action="/users/{{data.username}}?_method=PUT" method="post">
+            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Clear Solved</button>
+        </form>
         {{/if}}
     </div>
 </div>

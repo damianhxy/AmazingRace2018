@@ -32,9 +32,10 @@
                     <label for="answer" class="col-lg-2 col-form-label">Answer</label>
                     <div class="col-lg-10">
                         <input type="text" class="form-control" id="answer" name="answer" required>
+                        <span class="text-muted">Trailing whitespace will be trimmed</span>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success"><i class="fas fa-clipboard-check"></i> Submit</button>
             </form>
         </div>
     {{/unless}}

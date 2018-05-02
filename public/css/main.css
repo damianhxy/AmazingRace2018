@@ -7,6 +7,10 @@ body {
     margin-bottom: 60px;
 }
 
+main {
+    margin-top: 20px;
+}
+
 .ace_editor {
     height: 350px;
 }

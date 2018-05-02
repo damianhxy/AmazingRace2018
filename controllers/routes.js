@@ -40,7 +40,7 @@ router.get("/submit", function(req, res) {
 
 router.post("/submit", function(req, res) {
     var question = req.body.question;
-    var answer = req.body.answer;
+    var answer = req.body.answer.trim();
 
     var category = question.substr(0, 2);
     var id = question.substr(2);
