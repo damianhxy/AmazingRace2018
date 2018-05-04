@@ -2,7 +2,7 @@
     <div class="col-lg-6 offset-lg-3">
         <h1 class="text-center">Register new account</h1>
         <div class="alert alert-danger">
-            Spam accounts risk deletion. You have been warned!
+            <i class="fas fa-trash"></i> Spam accounts risk deletion. You have been warned!
         </div>
         <form action="/users/signup" method="post">
             <div class="form-group row">
@@ -33,7 +33,7 @@
             <div class="form-group row">
                 <label for="phone" class="col-lg-2 col-form-label">Phone</label>
                 <div class="col-lg-10">
-                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                    <input type="tel" class="form-control" id="phone" name="phone" required pattern="[0-9]{8}">
                 </div>
             </div>
             <div class="form-group row">
@@ -42,7 +42,7 @@
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <button type="submit" class="btn btn-success"><i class="fas fa-user-plus"></i> Sign Up</button>
         </form>
     </div>
 </row>
