@@ -1,10 +1,12 @@
 var express = require("express");
+var passport = require("passport");
 var router = express.Router();
 
 var user = require("../models/user.js");
 var problem = require("../models/problem.js");
 
 var flash = require("../middlewares/flash.js");
+var auth = require("../middlewares/auth.js");
 var admin = require("../middlewares/admin.js");
 
 router.use(flash);
@@ -30,12 +32,28 @@ router.get("/leaderboard", function(req, res) {
     });
 });
 
-router.get("/submit", function(req, res) {
-    res.render("submit", {
-        title: "Submit",
-        user: req.user,
-        problems: problem.all()
+router.get("/signin", function(req, res) {
+    res.render("signin", {
+        title: "Sign In",
     });
+});
+
+router.post("/signin", passport.authenticate("local-signin", {
+    successRedirect: "/",
+    failureRedirect: "/submit"
+}));
+
+router.get("/submit", function(req, res) {
+    if (!req.user) {
+        req.session.error = "Sign in first.";
+        res.status(401).redirect("/signin");
+    } else {
+        res.render("submit", {
+            title: "Submit",
+            user: req.user,
+            problems: problem.all()
+        });
+    }
 });
 
 router.post("/submit", function(req, res) {
@@ -80,6 +98,16 @@ router.get("/register", function(req, res) {
         title: "Register",
         user: req.user
     });
+});
+
+router.post("/signup", passport.authenticate("local-signup", {
+    successRedirect: "/",
+    failureRedirect: "/register"
+}));
+
+router.get("/signout", auth, function(req, res) {
+   req.logout();
+   res.redirect("/");
 });
 
 /* 404 & 500 */

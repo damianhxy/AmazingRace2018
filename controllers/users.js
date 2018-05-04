@@ -1,5 +1,4 @@
 var express = require("express");
-var passport = require("passport");
 var router = express.Router();
 
 var user = require("../models/user.js");
@@ -7,22 +6,15 @@ var user = require("../models/user.js");
 var auth = require("../middlewares/auth.js");
 var admin = require("../middlewares/admin.js");
 
-router.post("/signin", passport.authenticate("local-signin", {
-    successRedirect: "/",
-    failureRedirect: "/submit"
-}));
-
-router.post("/signup", passport.authenticate("local-signup", {
-    successRedirect: "/",
-    failureRedirect: "/register"
-}));
-
-router.get("/signout", auth, function(req, res) {
-   req.logout();
-   res.redirect("/");
+router.get("/", auth, function(req, res) {
+    res.render("profile", {
+        title: "Profile",
+        user: req.user,
+        data: req.user
+    });
 });
 
-router.get("/:username", auth, function(req, res) {
+router.get("/:username", admin, function(req, res) {
     user.get(req.params.username)
     .then(function(userData) {
         res.render("profile", {

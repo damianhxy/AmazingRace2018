@@ -23,14 +23,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/leaderboard"><i class="fas fa-users"></i> Leaderboard</a>
                 </li>
+                {{#if user}}
                 <li class="nav-item">
-                    {{#if user}}
-                        <a class="nav-link" href="/submit"><i class="fas fa-paper-plane"></i> Submit
-                    {{else}}
-                        <a class="nav-link" href="/submit"><i class="fas fa-sign-in-alt"></i> Sign In
-                    {{/if}}
-                    </a>
+                    <a class="nav-link" href="/submit"><i class="fas fa-paper-plane"></i> Submit</a>
                 </li>
+                {{else}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/signin"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                </li>
+                {{/if}}
                 {{#unless user}}
                 <li class="nav-item">
                     <a class="nav-link" href="/register"><i class="fas fa-user-plus"></i> Register</a>
@@ -38,7 +39,7 @@
                 {{/unless}}
                 {{#if user}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/users/{{user.username}}"><i class="fas fa-user"></i> {{user.name}}</a>
+                    <a class="nav-link" href="/users"><i class="fas fa-user"></i> {{user.name}}</a>
                 </li>
                 {{#if user.admin}}
                 <li class="nav-item">
@@ -46,7 +47,7 @@
                 </li>
                 {{/if}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/users/signout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                    <a class="nav-link" href="/signout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
                 </li>
                 {{/if}}
                 <li class="nav-item">
