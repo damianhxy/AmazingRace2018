@@ -14,14 +14,26 @@
             <tbody>
                 {{#each leaderboard}}
                 <tr>
-                    <th scope="row">{{math @index "+" 1}}</th>
+                    <th scope="row">
+                        {{#if this.admin}}
+                            <span class="text-muted">Admin</span>
+                        {{else}}
+                            {{math @index "+" 1}}
+                        {{/if}}
+                    </th>
                     {{#if ../user.admin}}
                     <td><a href="/users/{{this.username}}">{{this.name}}</a></td>
                     {{else}}
                     <td>{{this.name}}</td>
                     {{/if}}
                     <td>{{this.class}}</td>
-                    <td>{{this.score}}</td>
+                    <td>
+                        {{#if this.admin}}
+                            N/A
+                        {{else}}
+                            {{this.score}}
+                        {{/if}}
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>

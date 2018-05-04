@@ -10,7 +10,7 @@ Promise.promisifyAll(users.find().constructor.prototype);
 Promise.promisifyAll(bcryptjs);
 
 exports.add = function(req, username, password) {
-    username = username.trim();
+    username = encodeURIComponent(username.trim());
     return users.findOneAsync({ username: username })
     .then(function(user) {
         if (user) throw Error("User already exists");
@@ -44,8 +44,8 @@ exports.authenticate = function(username, password) {
 };
 
 exports.leaderboard = function() {
-    return users.find({ admin: false })
-    .sort({ score: -1 })
+    return users.find({})
+    .sort({ score: -1, admin: 1 })
     .execAsync();
 };
 
