@@ -31,11 +31,11 @@ router.put("/:id", admin, function(req, res) {
     user.clear(req.params.id)
     .then(function() {
         req.session.success = "Problems Cleared!";
-        res.status(200).redirect("/users/" + req.params.username);
+        res.status(200).redirect("/users/profile/" + req.params.id);
     })
     .catch(function(err) {
         req.session.error = err.message;
-        res.status(400).redirect("/users/" + req.params.username)
+        res.status(400).redirect("/users/profile/" + req.params.ide)
     });
 });
 

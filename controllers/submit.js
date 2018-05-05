@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 var user = require("../models/user.js");
+var problem = require("../models/problem.js");
 
 var auth = require("../middlewares/auth.js");
 
@@ -27,7 +28,7 @@ router.post("/", auth, function(req, res) {
 
     problem.check(category, id, answer)
     .then(function(score) {
-        return user.solve(req.user.id, question, score);
+        return user.solve(req.user._id, question, score);
     })
     .then(function() {
         req.session.success = question + " solved!";
