@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 
 var user = require("../models/user.js");
-var problem = require("../models/problem.js");
 
 var flash = require("../middlewares/flash.js");
 var auth = require("../middlewares/auth.js");

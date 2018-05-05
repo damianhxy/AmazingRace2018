@@ -29,10 +29,10 @@
         </dl>
         {{#if user.admin}}
         <div class="btn-group">
-            <form action="/users/{{data.username}}?_method=DELETE" method="post" class="adminForm">
+            <form action="/users/{{data._id}}?_method=DELETE" method="post" class="adminForm">
                 <button type="submit" class="btn btn-danger" {{#if data.admin}}disabled{{/if}}><i class="fas fa-user-times"></i> Delete User</button>
             </form>
-            <form action="/users/{{data.username}}?_method=PUT" method="post" class="adminForm">
+            <form action="/users/{{data._id}}?_method=PUT" method="post" class="adminForm">
                 <button type="submit" class="btn btn-warning"><i class="fas fa-trash"></i> Clear Solved</button>
             </form>
         </div>

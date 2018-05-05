@@ -53,30 +53,30 @@ exports.get = function(id) {
     return users.findOneAsync({ _id: id });
 };
 
-exports.clear = function(username) {
-    return users.findOneAsync({ username: username })
+exports.clear = function(id) {
+    return users.findOneAsync({ _id: id })
     .then(function(user) {
         user.solved = [];
         user.score = 0;
-        return users.updateAsync({ username: username }, { $set: user });
+        return users.updateAsync({ _id: id }, { $set: user });
     });
 }
 
-exports.delete = function(username) {
-    return users.findOneAsync({ username: username })
+exports.delete = function(id) {
+    return users.findOneAsync({ _id: id })
     .then(function(user) {
         if (user.admin) throw Error("User is an admin");
-        return users.removeAsync({ username: username });
+        return users.removeAsync({ _id: id });
     });
 };
 
-exports.solve = function(username, question, score) {
-    return users.findOneAsync({ username: username })
+exports.solve = function(id, question, score) {
+    return users.findOneAsync({ _id: id })
     .then(function(user) {
         if (user.solved.includes(question))
             throw Error("Points already claimed");
         user.solved.push(question);
         user.score += score;
-        return users.updateAsync({ username: username }, { $set: user });
+        return users.updateAsync({ _id: id }, { $set: user });
     });
 };

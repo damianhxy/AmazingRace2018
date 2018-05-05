@@ -3,6 +3,7 @@ var passport = require("passport");
 var router = express.Router();
 
 var user = require("../models/user.js");
+var problem = require("../models/problem.js");
 
 var auth = require("../middlewares/auth.js");
 var admin = require("../middlewares/admin.js");
@@ -26,8 +27,8 @@ router.get("/profile/:id", admin, function(req, res) {
     });
 });
 
-router.put("/:username", admin, function(req, res) {
-    user.clear(req.params.username)
+router.put("/:id", admin, function(req, res) {
+    user.clear(req.params.id)
     .then(function() {
         req.session.success = "Problems Cleared!";
         res.status(200).redirect("/users/" + req.params.username);
@@ -38,8 +39,8 @@ router.put("/:username", admin, function(req, res) {
     });
 });
 
-router.delete("/:username", admin, function(req, res) {
-    user.delete(req.params.username)
+router.delete("/:id", admin, function(req, res) {
+    user.delete(req.params.id)
     .then(function() {
         req.session.success = "User Deleted!";
         res.status(200).redirect("/leaderboard");
