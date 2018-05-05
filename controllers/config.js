@@ -79,11 +79,11 @@ module.exports = function(app, express) {
 
     // Serialization
     passport.serializeUser(function(user, done) {
-        done(null, user.username);
+        done(null, user._id);
     });
 
-    passport.deserializeUser(function(username, done) {
-        user.get(username)
+    passport.deserializeUser(function(id, done) {
+        user.get(id)
         .then(function(user) {
             done(null, user);
         })
