@@ -76,6 +76,7 @@ exports.solve = function(id, question, score) {
         if (user.solved.includes(question))
             throw Error("Points already claimed");
         user.solved.push(question);
+        user.solved.sort();
         user.score += score;
         return users.updateAsync({ _id: id }, { $set: user });
     });
