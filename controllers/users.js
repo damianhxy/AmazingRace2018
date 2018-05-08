@@ -53,7 +53,7 @@ router.delete("/:id", admin, function(req, res) {
 
 router.post("/signin", passport.authenticate("local-signin", {
     successRedirect: "/",
-    failureRedirect: "/submit"
+    failureRedirect: "/signin"
 }));
 
 router.post("/signup", passport.authenticate("local-signup", {

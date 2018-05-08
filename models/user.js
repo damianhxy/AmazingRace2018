@@ -45,7 +45,7 @@ exports.authenticate = function(username, password) {
 
 exports.leaderboard = function() {
     return users.find({})
-    .sort({ score: -1, admin: 1 })
+    .sort({ admin: 1, score: -1 })
     .execAsync();
 };
 
