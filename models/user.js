@@ -24,6 +24,7 @@ exports.add = function(req, username, password) {
                 "phone": req.body.phone,
                 "email": req.body.email,
                 "solved": [],
+                "latest": 0,
                 "score": 0,
                 "admin": false
             });
@@ -45,7 +46,7 @@ exports.authenticate = function(username, password) {
 
 exports.leaderboard = function() {
     return users.find({})
-    .sort({ admin: 1, score: -1 })
+    .sort({ admin: 1, score: -1, latest: 1, name: 1 })
     .execAsync();
 };
 
@@ -57,6 +58,7 @@ exports.clear = function(id) {
     return users.findOneAsync({ _id: id })
     .then(function(user) {
         user.solved = [];
+        user.latest = 0;
         user.score = 0;
         return users.updateAsync({ _id: id }, { $set: user });
     });
@@ -75,8 +77,8 @@ exports.solve = function(id, question, score) {
     .then(function(user) {
         if (user.solved.includes(question))
             throw Error("Points already claimed");
+        user.latest = Date.now();
         user.solved.push(question);
-        user.solved.sort();
         user.score += score;
         return users.updateAsync({ _id: id }, { $set: user });
     });
