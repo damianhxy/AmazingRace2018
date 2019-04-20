@@ -17,8 +17,8 @@ exports.add = function(req, username, password) {
         return bcryptjs.hashAsync(password, settings.HASH_ROUNDS)
         .then(function(hash) {
             return users.insertAsync({
-                "username": username,
-                "hash": hash,
+                username,
+                hash,
                 "name": req.body.name,
                 "class": req.body.class,
                 "phone": req.body.phone,
@@ -46,7 +46,7 @@ exports.authenticate = function(username, password) {
 
 exports.leaderboard = function() {
     return users.find({})
-    .sort({ admin: 1, score: -1, latest: 1, name: 1 })
+    .sort({ admin: 1, score: -1, latest: 1, class: 1, name: 1 })
     .execAsync();
 };
 
