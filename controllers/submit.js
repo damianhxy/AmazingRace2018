@@ -21,6 +21,7 @@ router.get("/", function(req, res) {
 
 router.post("/", auth, function(req, res) {
     var question = req.body.question;
+    var answer = req.body.answer;
 
     var category = question.substr(0, 2);
     var id = question.substr(2);
