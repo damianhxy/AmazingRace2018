@@ -1,9 +1,9 @@
-module.exports = function(req, res, next) {
-    ["success", "error"].forEach(function(e) {
-        if (req.session[e]) {
-            res.locals[e] = req.session[e];
-            delete req.session[e];
-        }
-    });
-    next();
+module.exports = function (req, res, next) {
+  for (const key of ["success", "error"]) {
+    if (req.session[key]) {
+      res.locals[key] = req.session[key];
+      delete req.session[key];
+    }
+  }
+  next();
 };

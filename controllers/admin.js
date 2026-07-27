@@ -1,22 +1,26 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-var problem = require("../models/problem.js");
+const problem = require("../models/problem.js");
 
-router.get("/", function(req, res) {
-    res.render("admin", {
-        title: "Admin",
-        user: req.user,
-        problems: JSON.stringify(problem.all(), null, 4)
-    });
+const admin = require("../middlewares/admin.js");
+
+router.get("/", admin, function (req, res) {
+  res.render("admin", {
+    title: "Admin",
+    user: req.user,
+    problems: JSON.stringify(problem.all(), null, 4),
+  });
 });
 
-router.post("/", function(req, res) {
-    problem.update(req.body.data)
-    .then(function() {
-        req.session.success = "Problem(s) updated!";
-        res.status(200).redirect("/admin");
-    });
+router.post("/", admin, async function (req, res, next) {
+  try {
+    await problem.update(req.body.data);
+    req.session.success = "Problem(s) updated!";
+    res.status(200).redirect("/admin");
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
