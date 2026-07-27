@@ -1,18 +1,26 @@
-const fs = require("node:fs/promises");
+const fs = require("node:fs");
+const fsPromises = require("node:fs/promises");
 const path = require("node:path");
 
-const QUESTIONS_PATH = path.join(__dirname, "..", "database", "questions.js");
+const QUESTIONS_PATH = path.join(__dirname, "..", "database", "questions.json");
+const LEGACY_PATH = path.join(__dirname, "..", "database", "questions.js");
 
 let problems = {};
 
-async function loadProblems() {
+function loadProblems() {
   try {
-    const content = await fs.readFile(QUESTIONS_PATH, "utf8");
-    const module = { exports: {} };
-    new Function("module", "exports", content)(module, module.exports);
-    problems = module.exports;
+    const content = fs.readFileSync(QUESTIONS_PATH, "utf8");
+    problems = JSON.parse(content);
   } catch {
-    problems = {};
+    try {
+      const content = fs.readFileSync(LEGACY_PATH, "utf8");
+      const m = { exports: {} };
+      new Function("module", "exports", content)(m, m.exports);
+      problems = m.exports;
+      fs.writeFileSync(QUESTIONS_PATH, JSON.stringify(problems, null, 2));
+    } catch {
+      problems = {};
+    }
   }
 }
 
@@ -39,6 +47,7 @@ exports.check = function (category, id, answer) {
 };
 
 exports.update = async function (data) {
-  await fs.writeFile(QUESTIONS_PATH, `module.exports = ${data}`);
-  await loadProblems();
+  const parsed = JSON.parse(data);
+  await fsPromises.writeFile(QUESTIONS_PATH, JSON.stringify(parsed, null, 2));
+  problems = parsed;
 };

@@ -10,7 +10,6 @@ router.get("/", auth, function (req, res) {
   res.render("submit", {
     title: "Submit",
     user: req.user,
-    problems: problem.all(),
   });
 });
 

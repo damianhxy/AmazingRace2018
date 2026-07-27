@@ -2,6 +2,9 @@
   <div class="col-lg-6 offset-lg-3 text-center">
     <h1 class="text-danger">500</h1>
     <p>The server suffered an internal error.</p>
+    {{#if error}}
+    <p><code>{{error}}</code></p>
+    {{/if}}
     <p><em>By golly, what did you do?</em></p>
   </div>
 </div>
