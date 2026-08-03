@@ -1,6 +1,10 @@
+"use strict";
+
+const js = require("@eslint/js");
 const globals = require("globals");
 
 module.exports = [
+  js.configs.recommended,
   {
     ignores: ["node_modules/**", "database/**"],
   },
@@ -13,13 +17,23 @@ module.exports = [
       },
     },
     rules: {
-      "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "no-unused-vars": ["warn", { argsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" }],
       "no-console": "off",
       eqeqeq: "error",
       "no-var": "error",
       "prefer-const": "error",
-      "prefer-template": "warn",
       "no-throw-literal": "error",
+    },
+  },
+  {
+    files: ["public/js/**/*.js"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "script",
+      globals: {
+        ...globals.browser,
+        $: "readonly",
+      },
     },
   },
 ];
