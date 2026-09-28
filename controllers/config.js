@@ -64,7 +64,7 @@ module.exports = function (app, express) {
 
   // CSRF protection — adds req.csrfToken() and validates on state-changing requests
   const csrf = csrfSync({
-    getTokenFromRequest: (req) => req.body?.csrfToken || req.query?.csrfToken,
+    getTokenFromRequest: (req) => req.get("x-csrf-token") || req.body?.csrfToken,
   });
   app.use(csrf.csrfSynchronisedProtection);
   app.use((req, res, next) => {
