@@ -67,6 +67,12 @@ module.exports = function (app, express) {
     getTokenFromRequest: (req) => req.get("x-csrf-token") || req.body?.csrfToken,
   });
   app.use(csrf.csrfSynchronisedProtection);
+  app.use((err, req, res, next) => {
+    if (err.code === "EBADCSRFTOKEN") {
+      return res.status(403).send("Invalid CSRF token.");
+    }
+    next(err);
+  });
   app.use((req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
     next();
