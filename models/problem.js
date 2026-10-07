@@ -23,8 +23,9 @@ function validateProblems(value) {
       if (!/^\d{2}$/.test(id) || !isRecord(problem)) {
         throw new Error(`Invalid problem ID: ${category}${id}`);
       }
-      if (typeof problem.case_sensitive !== "boolean") {
-        throw new Error(`${category}${id} must specify case_sensitive`);
+      // Omitted case_sensitive means case-insensitive, as in the original problem format.
+      if (problem.case_sensitive !== undefined && typeof problem.case_sensitive !== "boolean") {
+        throw new Error(`${category}${id} case_sensitive must be true or false`);
       }
       if (
         !Array.isArray(problem.answers) ||
