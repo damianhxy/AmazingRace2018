@@ -15,8 +15,9 @@ router.get("/", auth, function (req, res) {
 
 router.post("/", auth, async function (req, res) {
   try {
-    const question = req.body.question?.trim().toUpperCase();
+    const rawQuestion = req.body.question;
     const answer = req.body.answer;
+    const question = typeof rawQuestion === "string" ? rawQuestion.trim().toUpperCase() : "";
 
     if (!/^[A-Z]{2}\d{2}$/.test(question) || typeof answer !== "string") {
       throw new Error("Invalid submission");
