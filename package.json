@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "node --watch app.js",
+    "migrate:users": "node migrate-users.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
